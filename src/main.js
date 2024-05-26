@@ -8,7 +8,7 @@ import fetchPhotos from './js/pixabay-api';
 const imgGalleryContainer = document.querySelector('.gallery');
 const form = document.querySelector('.srch-form');
 const loader = document.querySelector('.loader');
-const loadImgsBtn = document.querySelector('.img-btn');
+const loadImgsBtn = document.querySelector('.img-load-btn');
 
 let page = 1;
 let limit = 15;
