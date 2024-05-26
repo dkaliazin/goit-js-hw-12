@@ -14,13 +14,6 @@ let page = 1;
 let limit = 15;
 let currentSrchQuery = '';
 
-function hideLoadMoreButton() {
-  loadImgsBtn.classList.add('is-hidden-btn');
-}
-
-function showLoadMoreButton() {
-  loadImgsBtn.classList.remove('is-hidden-btn');
-}
 
 async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
   loader.classList.remove('is-hidden');
@@ -30,7 +23,7 @@ async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
       iziToast.error({
         message: 'Sorry, there are no images matching your search query. Please try again!',
       });
-      hideLoadMoreButton();
+      loadImgsBtn.classList.add('is-hidden-btn');
       loadImgsBtn.removeEventListener('click', onLoadMore);
     } else {
       imgGalleryContainer.insertAdjacentHTML('beforeend', createMarkupGal(imagesData.hits));
@@ -42,13 +35,13 @@ async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
 
       const totalLoadedImages = pageNumber * limit;
       if (totalLoadedImages >= imagesData.totalHits) {
-        hideLoadMoreButton();
+        loadImgsBtn.classList.add('is-hidden-btn');
         loadImgsBtn.removeEventListener('click', onLoadMore);
         iziToast.info({
           message: "We're sorry, but you've reached the end of search results.",
         });
       } else {
-        showLoadMoreButton();
+        loadImgsBtn.classList.remove('is-hidden-btn');
       }
     }
   } catch (error) {
@@ -65,7 +58,7 @@ async function onSearch(event) {
   const searchQuery = event.target.elements.searchKeyword.value.trim();
   imgGalleryContainer.innerHTML = '';
   if (searchQuery === '') {
-    hideLoadMoreButton();
+    loadImgsBtn.classList.add('is-hidden-btn');
     loadImgsBtn.removeEventListener('click', onLoadMore);
     return iziToast.error({
       message: 'Please enter a search query before searching!',
