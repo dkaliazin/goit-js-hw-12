@@ -9,9 +9,10 @@ const imgGalleryContainer = document.querySelector('.gallery');
 const form = document.querySelector('.srch-form');
 const loader = document.querySelector('.loader');
 const loadImgsBtn = document.querySelector('.img-btn');
+
 let page = 1;
 let limit = 15;
-let currentSrchQuery = ''; 
+let currentSrchQuery = '';
 
 function hideLoadMoreButton() {
   loadImgsBtn.classList.add('is-hidden-btn');
@@ -32,11 +33,10 @@ async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
       hideLoadMoreButton();
       loadImgsBtn.removeEventListener('click', onLoadMore);
     } else {
-      imgGalleryContainer.insertAdjacentHTML('beforeend', createMarkup(imagesData.hits));
-
+      imgGalleryContainer.insertAdjacentHTML('beforeend', createMarkupGal(imagesData.hits));
       const lightbox = new SimpleLightbox('.gallery a', {
         captionsData: 'alt',
-        captionsDelay: 250,
+        captionDelay: 250,
       });
       lightbox.refresh();
 
@@ -77,7 +77,6 @@ async function onSearch(event) {
   try {
     page = 1;
     await fetchAndDisplayPhotos(searchQuery, page);
-    loadImgsBtn.addEventListener('click', onLoadMore);
   } catch (error) {
     iziToast.error({
       message: 'An error occurred while performing the search. Please try again later.',
@@ -88,18 +87,20 @@ async function onSearch(event) {
   }
 }
 
+form.addEventListener('submit', onSearch);
+
 async function onLoadMore() {
   page += 1;
   await fetchAndDisplayPhotos(currentSrchQuery, page);
   scrollPage();
 }
 
-form.addEventListener('submit', onSearch);
+loadImgsBtn.addEventListener('click', onLoadMore);
 
 function scrollPage() {
   const { height: cardHeight } = document
-    .querySelector('.photo-card')
-    .getBoundingClientRect();
+    .querySelector('.gallery-item')
+    .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
     top: cardHeight * 2,
