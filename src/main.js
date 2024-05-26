@@ -24,7 +24,7 @@ async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
         message: 'Sorry, there are no images matching your search query. Please try again!',
       });
       loadImgsBtn.classList.add('is-hidden-btn');
-      loadImgsBtn.removeEventListener('click', onLoadMore);
+      //loadImgsBtn.removeEventListener('click', onLoadMore);
     } else {
       imgGalleryContainer.insertAdjacentHTML('beforeend', createMarkupGal(imagesData.hits));
       const lightbox = new SimpleLightbox('.gallery a', {
