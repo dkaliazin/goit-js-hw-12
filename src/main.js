@@ -25,7 +25,7 @@ function showLoadMoreButton() {
 async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
   loader.classList.remove('is-hidden');
   try {
-    const imagesData = await fetchPhotos(searchQuery, pageNumber, limit);
+    const imagesData = await fetchPhotos(searchQuery, pageNumber);
     if (imagesData.hits.length === 0) {
       iziToast.error({
         message: 'Sorry, there are no images matching your search query. Please try again!',
