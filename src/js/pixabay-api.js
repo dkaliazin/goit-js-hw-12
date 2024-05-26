@@ -1,7 +1,7 @@
 import axios from 'axios';
 const apiKey = "28216731-30bd748fb13dcf95cdddced76";
 const pixUrl = "https://pixabay.com/api/";
-async function fetchPhotos(searchQuery, page = 1, perPage = 15) {
+async function fetchPhotos(searchQuery, page = 1, limit = 15) {
   const response = await axios.get(pixUrl, {
     params: {
       key: apiKey,
@@ -10,7 +10,7 @@ async function fetchPhotos(searchQuery, page = 1, perPage = 15) {
       orientation: 'horizontal',
       safesearch: 'true',
       page: page,
-      per_page: perPage,
+      per_page: limit,
     },
   });
 
