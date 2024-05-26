@@ -36,7 +36,7 @@ async function fetchAndDisplayPhotos(searchQuery, pageNumber) {
       const totalLoadedImages = pageNumber * limit;
       if (totalLoadedImages >= imagesData.totalHits) {
         loadImgsBtn.classList.add('is-hidden-btn');
-        loadImgsBtn.removeEventListener('click', onLoadMore);
+        //loadImgsBtn.removeEventListener('click', onLoadMore);
         iziToast.info({
           message: "We're sorry, but you've reached the end of search results.",
         });
@@ -59,7 +59,7 @@ async function onSearch(event) {
   imgGalleryContainer.innerHTML = '';
   if (searchQuery === '') {
     loadImgsBtn.classList.add('is-hidden-btn');
-    loadImgsBtn.removeEventListener('click', onLoadMore);
+    //loadImgsBtn.removeEventListener('click', onLoadMore);
     return iziToast.error({
       message: 'Please enter a search query before searching!',
     });
